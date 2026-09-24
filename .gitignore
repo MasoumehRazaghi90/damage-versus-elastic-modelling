@@ -1,0 +1,5 @@
+tempFEBio/
+**/tempFEBio/
+*.feb
+*.xplt
+*_out.txt
