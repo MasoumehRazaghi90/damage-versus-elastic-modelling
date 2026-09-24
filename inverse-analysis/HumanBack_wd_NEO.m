@@ -48,7 +48,7 @@ febioLogFileName_stress=[febioFebFileNamePart,'_stress_out.txt']; %Log file name
 febioLogFileName_stretch=[febioFebFileNamePart,'_stretch_out.txt']; %Log file name for exporting stretch U_z
 
 % Define data paths
-loadPath_experimental = fullfile(fileparts(defaultFolder),'data','Ni_Annaidh_2012');
+loadPath_experimental = fullfile(fileparts(defaultFolder),'data','Li_and_Luo');
 dataName_1 = fullfile(loadPath_experimental,'HumanBack_stress_stretch_perp_wd.mat');
 dataName_2 = fullfile(loadPath_experimental,'HumanBack_stress_stretch_para_wd.mat');
 
