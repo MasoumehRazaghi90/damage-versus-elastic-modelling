@@ -30,10 +30,5 @@ MATLAB/GIBBON and FEBio scripts for inverse analysis of human back skin and simu
 3. Add `mesh-models/hyperelastic` to your MATLAB path before running the damage auxetic script, since it calls `allGeometries`. Configure any remaining machine specific paths and MATLAB working directory for your installation.
 4. Run `HumanBack_wd_NEO.m` or `HumanBack_wd_OGDEN.m` for predamage calibration. The `damage_*` and `twodamage_*` scripts use the full curves. Use `twodamage_HumanBack_OGDEN_fixed_Last.m` for the final supplied two-damage calibration, then run the corresponding mesh scripts.
 
-The scripts have not been executed or numerically validated in this packaged layout. The paper draft is not included. Add the final article citation and DOI here when published: **[citation pending]**.
-
-The experimental `.mat` data may have separate source and redistribution terms. Verify permission to redistribute them before making the repository public. The MIT license covers code that the copyright holder has authority to license.
-
-## License
 
 Copyright © 2026 Masoumeh Razaghi. See [LICENSE](LICENSE).
