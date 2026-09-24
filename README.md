@@ -6,8 +6,8 @@ MATLAB/GIBBON and FEBio scripts for inverse analysis of human back skin and simu
 
 | Folder or file | Purpose |
 | --- | --- |
-| `data/Ni_Annaidh_2012/*_wd.mat` | Experimental parallel and perpendicular stress–stretch data for the predamage fitting range. |
-| `data/Ni_Annaidh_2012/HumanBack_stress_stretch_{para,perp}.mat` | Full experimental curves including the damage range. |
+| `data/Li_and_Luo/*_wd.mat` | Experimental parallel and perpendicular stress–stretch data for the predamage fitting range. |
+| `data/Li_and_Luo/HumanBack_stress_stretch_{para,perp}.mat` | Full experimental curves including the damage range. |
 | `inverse-analysis/HumanBack_wd_NEO.m` | Predamage neo-Hookean–GOH fit. The matrix uses FEBio's Ogden form with `m1 = 2`. |
 | `inverse-analysis/HumanBack_wd_OGDEN.m` | Predamage one-term Ogden–GOH fit. |
 | `inverse-analysis/damage_HumanBack_NEO.m` | Unified damage model for the neo-Hookean–GOH mixture. |
@@ -26,7 +26,7 @@ MATLAB/GIBBON and FEBio scripts for inverse analysis of human back skin and simu
 ## Run locally
 
 1. Install MATLAB, GIBBON and FEBio. The scripts construct FEBio 4.0 model specifications.
-2. Change the `gibbonFolder` setting in each inverse analysis script to your own GIBBON installation. The packaged inverse scripts point to `data/Ni_Annaidh_2012` in this repository. The attachment filename suffixes `(1)` and `(2)` were removed to match the scripts' `load` calls.
+2. Change the `gibbonFolder` setting in each inverse analysis script to your own GIBBON installation. The packaged inverse scripts point to `data/Li_and_Luo` in this repository. The attachment filename suffixes `(1)` and `(2)` were removed to match the scripts' `load` calls.
 3. Add `mesh-models/hyperelastic` to your MATLAB path before running the damage auxetic script, since it calls `allGeometries`. Configure any remaining machine specific paths and MATLAB working directory for your installation.
 4. Run `HumanBack_wd_NEO.m` or `HumanBack_wd_OGDEN.m` for predamage calibration. The `damage_*` and `twodamage_*` scripts use the full curves. Use `twodamage_HumanBack_OGDEN_fixed_Last.m` for the final supplied two-damage calibration, then run the corresponding mesh scripts.
 
