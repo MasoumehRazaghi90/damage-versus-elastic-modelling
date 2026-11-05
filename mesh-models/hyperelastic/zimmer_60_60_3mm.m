@@ -44,7 +44,7 @@ m1_ini = 6.9427891844363305e+00;
 k_ini  = c1_ini*k_factor;
 
 % GOH fibers
-k1_ini    = 2.1009948723657132e+01;
+k1_ini    = 2*2.1009948723657132e+01;
 k2_ini    = 6.9399954857954005e-01;
 kappa_ini = 1.4455130336209238e-01;
 gamma     = 41;
@@ -593,21 +593,21 @@ for ia = 1:numel(angles_deg)
 
     % Constituent 2: HGO fibre family at +gamma
     febio_spec.Material.material{1}.solid{2}.ATTR.type = 'HGO unconstrained';
-    febio_spec.Material.material{1}.solid{2}.c = cGOH_ini/2;
+    febio_spec.Material.material{1}.solid{2}.c = 2*(cGOH_ini/2);
     febio_spec.Material.material{1}.solid{2}.k1 = k1_ini;
     febio_spec.Material.material{1}.solid{2}.k2 = k2_ini;
     febio_spec.Material.material{1}.solid{2}.kappa = kappa_ini;
     febio_spec.Material.material{1}.solid{2}.gamma = +gamma;
-    febio_spec.Material.material{1}.solid{2}.k = kGOH_ini/2;
+    febio_spec.Material.material{1}.solid{2}.k = 2*(kGOH_ini/2);
 
     % Constituent 3: HGO fibre family at -gamma
-    febio_spec.Material.material{1}.solid{3}.ATTR.type = 'HGO unconstrained';
-    febio_spec.Material.material{1}.solid{3}.c = cGOH_ini/2;
-    febio_spec.Material.material{1}.solid{3}.k1 = k1_ini;
-    febio_spec.Material.material{1}.solid{3}.k2 = k2_ini;
-    febio_spec.Material.material{1}.solid{3}.kappa = kappa_ini;
-    febio_spec.Material.material{1}.solid{3}.gamma = -gamma;
-    febio_spec.Material.material{1}.solid{3}.k = kGOH_ini/2;
+    % febio_spec.Material.material{1}.solid{3}.ATTR.type = 'HGO unconstrained';
+    % febio_spec.Material.material{1}.solid{3}.c = cGOH_ini/2;
+    % febio_spec.Material.material{1}.solid{3}.k1 = k1_ini;
+    % febio_spec.Material.material{1}.solid{3}.k2 = k2_ini;
+    % febio_spec.Material.material{1}.solid{3}.kappa = kappa_ini;
+    % febio_spec.Material.material{1}.solid{3}.gamma = -gamma;
+    % febio_spec.Material.material{1}.solid{3}.k = kGOH_ini/2;
 
     % Mesh section
     % -> Nodes
@@ -1551,4 +1551,3 @@ if isempty(iq)
 end
 q = x(iq);
 end
-
