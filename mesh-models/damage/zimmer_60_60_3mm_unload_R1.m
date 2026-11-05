@@ -45,7 +45,7 @@ m1_ini = 6.9427891844363305e+00;
 k_ini  = c1_ini*k_factor;
 
 % GOH fibers
-k1_ini    = 2.1009948723657132e+01;
+k1_ini    = 2*2.1009948723657132e+01;
 k2_ini    = 6.9399954857954005e-01;
 kappa_ini = 1.4455130336209238e-01;
 gamma     = 41;
@@ -630,12 +630,12 @@ for ia = 1:numel(angles_deg)
 
     febio_spec.Material.material{1}.solid{2}.ATTR.type = 'elastic damage';
     febio_spec.Material.material{1}.solid{2}.elastic.ATTR.type = 'HGO unconstrained';
-    febio_spec.Material.material{1}.solid{2}.elastic.c = cGOH_ini/2;
+    febio_spec.Material.material{1}.solid{2}.elastic.c = 2*(cGOH_ini/2);
     febio_spec.Material.material{1}.solid{2}.elastic.k1 = k1_ini;
     febio_spec.Material.material{1}.solid{2}.elastic.k2 = k2_ini;
     febio_spec.Material.material{1}.solid{2}.elastic.kappa = kappa_ini;
     febio_spec.Material.material{1}.solid{2}.elastic.gamma = +gamma;
-    febio_spec.Material.material{1}.solid{2}.elastic.k = kGOH_ini/2;
+    febio_spec.Material.material{1}.solid{2}.elastic.k = 2*(kGOH_ini/2);
 
     % Fibre damage
     febio_spec.Material.material{1}.solid{2}.damage.ATTR.type = 'CDF log-normal';
@@ -647,21 +647,21 @@ for ia = 1:numel(angles_deg)
 
     %% Constituent 3: damaged HGO fibre family at -gamma
 
-    febio_spec.Material.material{1}.solid{3}.ATTR.type = 'elastic damage';
-    febio_spec.Material.material{1}.solid{3}.elastic.ATTR.type = 'HGO unconstrained';
-    febio_spec.Material.material{1}.solid{3}.elastic.c = cGOH_ini/2;
-    febio_spec.Material.material{1}.solid{3}.elastic.k1 =k1_ini;
-    febio_spec.Material.material{1}.solid{3}.elastic.k2 = k2_ini;
-    febio_spec.Material.material{1}.solid{3}.elastic.kappa = kappa_ini;
-    febio_spec.Material.material{1}.solid{3}.elastic.gamma =-gamma;
-    febio_spec.Material.material{1}.solid{3}.elastic.k = kGOH_ini/2;
-
-    % Same fibre-damage parameters as the +gamma family
-    febio_spec.Material.material{1}.solid{3}.damage.ATTR.type = 'CDF log-normal';
-    febio_spec.Material.material{1}.solid{3}.damage.mu = mu_GOH_ini;
-    febio_spec.Material.material{1}.solid{3}.damage.sigma = sigma_GOH_ini;
-    febio_spec.Material.material{1}.solid{3}.damage.Dmax = Dmax_GOH_ini;
-    febio_spec.Material.material{1}.solid{3}.criterion.ATTR.type = 'DC max normal Lagrange strain';
+    % febio_spec.Material.material{1}.solid{3}.ATTR.type = 'elastic damage';
+    % febio_spec.Material.material{1}.solid{3}.elastic.ATTR.type = 'HGO unconstrained';
+    % febio_spec.Material.material{1}.solid{3}.elastic.c = cGOH_ini/2;
+    % febio_spec.Material.material{1}.solid{3}.elastic.k1 =k1_ini;
+    % febio_spec.Material.material{1}.solid{3}.elastic.k2 = k2_ini;
+    % febio_spec.Material.material{1}.solid{3}.elastic.kappa = kappa_ini;
+    % febio_spec.Material.material{1}.solid{3}.elastic.gamma =-gamma;
+    % febio_spec.Material.material{1}.solid{3}.elastic.k = kGOH_ini/2;
+    % 
+    % % Same fibre-damage parameters as the +gamma family
+    % febio_spec.Material.material{1}.solid{3}.damage.ATTR.type = 'CDF log-normal';
+    % febio_spec.Material.material{1}.solid{3}.damage.mu = mu_GOH_ini;
+    % febio_spec.Material.material{1}.solid{3}.damage.sigma = sigma_GOH_ini;
+    % febio_spec.Material.material{1}.solid{3}.damage.Dmax = Dmax_GOH_ini;
+    % febio_spec.Material.material{1}.solid{3}.criterion.ATTR.type = 'DC max normal Lagrange strain';
 
 
     % Mesh section
@@ -813,9 +813,7 @@ for ia = 1:numel(angles_deg)
     febioLogFileName_disp = [logNamePrefix, '_disp_out.txt'];
     febioLogFileName_stress_prin = [logNamePrefix, '_stress_prin_out.txt'];
     febioLogFileName_force = [logNamePrefix, '_force_out.txt'];
-    % febioLogFileName_energy = [logNamePrefix, '_energy_out.txt'];
-    % febioLogFileName_damage = [logNamePrefix, '_damage_out.txt'];
-    febioLogFileName_stress_y = ...
+      febioLogFileName_stress_y = ...
         [logNamePrefix, '_stress_y_out.txt'];
 
    
@@ -1826,4 +1824,3 @@ if isempty(iq)
 end
 q = x(iq);
 end
-
