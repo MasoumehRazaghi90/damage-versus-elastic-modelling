@@ -26,7 +26,7 @@ m1_ini = 6.9427891844363305e+00;
 k_matrix_ini = c1_ini*k_factor;
 
 % GOH fibers
-k1_ini    = 2.1009948723657132e+01;
+k1_ini    = 2*2.1009948723657132e+01;
 k2_ini    = 6.9399954857954005e-01;
 kappa_ini = 1.4455130336209238e-01;
 gamma     = 41;
@@ -467,7 +467,7 @@ for ia = 1:numel(angles_deg)
         'HGO unconstrained';
 
     febio_spec.Material.material{1}.solid{2}.elastic.c = ...
-        cGOH_ini/2;
+        2*(cGOH_ini/2);
 
     febio_spec.Material.material{1}.solid{2}.elastic.k1 = ...
         k1_ini;
@@ -482,7 +482,7 @@ for ia = 1:numel(angles_deg)
         +gamma;
 
     febio_spec.Material.material{1}.solid{2}.elastic.k = ...
-        kGOH_ini/2;
+        2*(kGOH_ini/2);
 
     % HGO damage law
     febio_spec.Material.material{1}.solid{2}.damage.ATTR.type = ...
@@ -503,46 +503,46 @@ for ia = 1:numel(angles_deg)
 
     %% Component 3: damaged HGO fibre family at -gamma
 
-    febio_spec.Material.material{1}.solid{3}.ATTR.type = ...
-        'elastic damage';
+    % febio_spec.Material.material{1}.solid{3}.ATTR.type = ...
+    %     'elastic damage';
+    % 
+    % % Elastic HGO material
+    % febio_spec.Material.material{1}.solid{3}.elastic.ATTR.type = ...
+    %     'HGO unconstrained';
+    % 
+    % febio_spec.Material.material{1}.solid{3}.elastic.c = ...
+    %     cGOH_ini/2;
+    % 
+    % febio_spec.Material.material{1}.solid{3}.elastic.k1 = ...
+    %     k1_ini;
+    % 
+    % febio_spec.Material.material{1}.solid{3}.elastic.k2 = ...
+    %     k2_ini;
+    % 
+    % febio_spec.Material.material{1}.solid{3}.elastic.kappa = ...
+    %     kappa_ini;
+    % 
+    % febio_spec.Material.material{1}.solid{3}.elastic.gamma = ...
+    %     -gamma;
+    % 
+    % febio_spec.Material.material{1}.solid{3}.elastic.k = ...
+    %     kGOH_ini/2;
+    % 
+    % % Same HGO damage law as the +gamma family
+    % febio_spec.Material.material{1}.solid{3}.damage.ATTR.type = ...
+    %     'CDF log-normal';
+    % 
+    % febio_spec.Material.material{1}.solid{3}.damage.mu = ...
+    %     mu_GOH_ini;
+    % 
+    % febio_spec.Material.material{1}.solid{3}.damage.sigma = ...
+    %     sigma_GOH_ini;
+    % 
+    % febio_spec.Material.material{1}.solid{3}.damage.Dmax = ...
+    %     Dmax_GOH_ini;
 
-    % Elastic HGO material
-    febio_spec.Material.material{1}.solid{3}.elastic.ATTR.type = ...
-        'HGO unconstrained';
-
-    febio_spec.Material.material{1}.solid{3}.elastic.c = ...
-        cGOH_ini/2;
-
-    febio_spec.Material.material{1}.solid{3}.elastic.k1 = ...
-        k1_ini;
-
-    febio_spec.Material.material{1}.solid{3}.elastic.k2 = ...
-        k2_ini;
-
-    febio_spec.Material.material{1}.solid{3}.elastic.kappa = ...
-        kappa_ini;
-
-    febio_spec.Material.material{1}.solid{3}.elastic.gamma = ...
-        -gamma;
-
-    febio_spec.Material.material{1}.solid{3}.elastic.k = ...
-        kGOH_ini/2;
-
-    % Same HGO damage law as the +gamma family
-    febio_spec.Material.material{1}.solid{3}.damage.ATTR.type = ...
-        'CDF log-normal';
-
-    febio_spec.Material.material{1}.solid{3}.damage.mu = ...
-        mu_GOH_ini;
-
-    febio_spec.Material.material{1}.solid{3}.damage.sigma = ...
-        sigma_GOH_ini;
-
-    febio_spec.Material.material{1}.solid{3}.damage.Dmax = ...
-        Dmax_GOH_ini;
-
-    febio_spec.Material.material{1}.solid{3}.criterion.ATTR.type = ...
-        'DC max normal Lagrange strain';
+    % febio_spec.Material.material{1}.solid{3}.criterion.ATTR.type = ...
+    %     'DC max normal Lagrange strain';
     % Mesh section
     % -> Nodes
 
@@ -832,7 +832,7 @@ for ia = 1:numel(angles_deg)
             lambda_y_vec(i) = h / h0;
             J_vec(i)        = A / A0;%area ratio
 
-            % True Poisson’s ratio (log-based definition)
+            % True Poisson's ratio (log-based definition)
             if lambda_y_vec(i) > 0 && lambda_x_vec(i) > 0
                 nu_true(i) = -log(lambda_x_vec(i)) / log(lambda_y_vec(i));
             else
@@ -866,7 +866,7 @@ for ia = 1:numel(angles_deg)
             timeVec(:), ...
             'linear','extrap');
 
-        % Plot true Poisson’s ratio
+        % Plot true Poisson's ratio
         cFigure; hold on;
         plot(lambda_y_vec, nu_true, 'b-', 'LineWidth', 5);
         xlabel('\lambda_y (Axial Stretch)', 'Interpreter', 'tex', 'FontSize', 20,'FontWeight', 'bold');
@@ -1031,60 +1031,7 @@ for ia = 1:numel(angles_deg)
         fprintf('Minimum element volume: %.6g\n',min(elementWeights));
         fprintf('Maximum element volume: %.6g\n',max(elementWeights));
 
-        % for i = 1:nSteps
-        %
-        %     E_step = E_energy_mat(:,1,i);
-        %     D_step = E_damage_mat(:,1,i);
-        %
-        %     damaged = D_step > 0.01;
-        %     intact  = ~damaged;
-        %
-        %     % Total strain energy
-        %     energy_total_vec(i) = mean(E_step);
-        %
-        %     % Energy in damaged region
-        %     if any(damaged)
-        %         energy_damage_vec(i) = mean(E_step(damaged));
-        %     else
-        %         energy_damage_vec(i) = NaN;
-        %     end
-        %
-        %     % Energy in intact region
-        %     if any(intact)
-        %         energy_intact_vec(i) = mean(E_step(intact));
-        %     else
-        %         energy_intact_vec(i) = NaN;
-        %     end
-        %
-        %     damage_vec(i) = mean(D_step);
-        %
-        %     % --- total energy as SUM, like the first script ---
-        %     energy_total_sum   = zeros(nSteps,1);
-        %     energy_damage_sum  = zeros(nSteps,1);
-        %     energy_intact_sum  = zeros(nSteps,1);
-        %
-        %     for k = 1:nSteps
-        %         E_step = E_energy_mat(:,1,k);
-        %         D_step = E_damage_mat(:,1,k);
-        %
-        %         damaged = D_step > 0.01;
-        %         intact  = ~damaged;
-        %
-        %         energy_damage_sum(k) = sum(E_step(damaged));
-        %         energy_intact_sum(k) = sum(E_step(intact));
-        %         energy_total_sum(k)  = energy_damage_sum(k) + energy_intact_sum(k);
-        %     end
-        %
-        %     % --- save results for final comparison plots ---
-        %     idx = find(angles_deg == ang);
-        %
-        %     results(idx).lambda      = lambda_y_vec;
-        %     results(idx).force       = Fy_vec;
-        %     results(idx).energy_mean = energy_total_vec;
-        %     results(idx).energy_sum  = energy_total_sum;
-        %     results(idx).damage      = damage_vec;
-        %
-        % end
+    
         for i = 1:nSteps
 
             E_step = E_energy_mat(:,1,i);
