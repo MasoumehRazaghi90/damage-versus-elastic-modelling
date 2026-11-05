@@ -940,35 +940,7 @@ if all(runFlags==1)
     stress_para_sim  = squeeze(mean(mean(simData(2).dataStruct_stress.data,1),2));
     energy_para_sim  = squeeze(mean(mean(simData(2).dataStruct_energy.data,1),2));
 
-    % Damage from same CDF log-normal law
-    % normalCDF = @(x) 0.5.*(1 + erf(x./sqrt(2))); % avoids needing Statistics Toolbox
-    % 
-    % Ecrit_perp = 0.5*(stretch_perp_sim.^2 - 1);
-    % Ecrit_para = 0.5*(stretch_para_sim.^2 - 1);
-    % 
-    % damage_perp_sim = Dmax .* normalCDF((Ecrit_perp - mu)./sigma);
-    % damage_para_sim = Dmax .* normalCDF((Ecrit_para - mu)./sigma);
-
-    % % Approximate maximum Lagrange strain for this uniaxial test
-    % Ecrit_perp = 0.5*(stretch_perp_sim.^2 - 1);
-    % Ecrit_para = 0.5*(stretch_para_sim.^2 - 1);
-    % 
-    % % FEBio damage is irreversible, so use the maximum previous value
-    % Xhist_perp = cummax(max(Ecrit_perp,0));
-    % Xhist_para = cummax(max(Ecrit_para,0));
-    % 
-    % damage_perp_sim = zeros(size(Xhist_perp));
-    % damage_para_sim = zeros(size(Xhist_para));
-    % 
-    % indPerp = Xhist_perp > 0;
-    % indPara = Xhist_para > 0;
-    % 
-    % damage_perp_sim(indPerp) = Dmax .* 0.5 .* erfc( ...
-    %     -log(Xhist_perp(indPerp)./mu) ./ (sigma*sqrt(2)));
-    % 
-    % damage_para_sim(indPara) = Dmax .* 0.5 .* erfc( ...
-    %     -log(Xhist_para(indPara)./mu) ./ (sigma*sqrt(2)));
-
+  
     % Read actual damage calculated by FEBio
     damage_perp_sim = squeeze(mean(mean( ...
         simData(1).dataStruct_damage.data,1),2));
