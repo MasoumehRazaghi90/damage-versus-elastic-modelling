@@ -26,7 +26,7 @@ m1_ini = 6.9427891844363305e+00;
 k_ini  = c1_ini*k_factor;
 
 % GOH fibers
-k1_ini    = 2.1009948723657132e+01;
+k1_ini    = 2*2.1009948723657132e+01;
 k2_ini    = 6.9399954857954005e-01;
 kappa_ini = 1.4455130336209238e-01;
 gamma     = 41;
@@ -305,21 +305,21 @@ for ia = 1:numel(angles_deg)
 
     % Solid 2: GOH fiber family +gamma
     febio_spec.Material.material{1}.solid{2}.ATTR.type = 'HGO unconstrained';
-    febio_spec.Material.material{1}.solid{2}.c     = cGOH_ini/2;
+    febio_spec.Material.material{1}.solid{2}.c     = 2*(cGOH_ini/2);
     febio_spec.Material.material{1}.solid{2}.k1    = k1_ini;
     febio_spec.Material.material{1}.solid{2}.k2    = k2_ini;
     febio_spec.Material.material{1}.solid{2}.gamma = gamma;
     febio_spec.Material.material{1}.solid{2}.kappa = kappa_ini;
-    febio_spec.Material.material{1}.solid{2}.k     = kGOH_ini/2;
+    febio_spec.Material.material{1}.solid{2}.k     = 2*(kGOH_ini/2);
 
     % Solid 3: GOH fiber family -gamma
-    febio_spec.Material.material{1}.solid{3}.ATTR.type = 'HGO unconstrained';
-    febio_spec.Material.material{1}.solid{3}.c     = cGOH_ini/2;
-    febio_spec.Material.material{1}.solid{3}.k1    = k1_ini;
-    febio_spec.Material.material{1}.solid{3}.k2    = k2_ini;
-    febio_spec.Material.material{1}.solid{3}.gamma = -gamma;
-    febio_spec.Material.material{1}.solid{3}.kappa = kappa_ini;
-    febio_spec.Material.material{1}.solid{3}.k     = kGOH_ini/2;
+    % febio_spec.Material.material{1}.solid{3}.ATTR.type = 'HGO unconstrained';
+    % febio_spec.Material.material{1}.solid{3}.c     = cGOH_ini/2;
+    % febio_spec.Material.material{1}.solid{3}.k1    = k1_ini;
+    % febio_spec.Material.material{1}.solid{3}.k2    = k2_ini;
+    % febio_spec.Material.material{1}.solid{3}.gamma = -gamma;
+    % febio_spec.Material.material{1}.solid{3}.kappa = kappa_ini;
+    % febio_spec.Material.material{1}.solid{3}.k     = kGOH_ini/2;
 
     % Mesh section
     % -> Nodes
@@ -616,7 +616,7 @@ for ia = 1:numel(angles_deg)
             lambda_y_vec(i) = h / h0;
             J_vec(i)        = A / A0;%area ratio
 
-            % True Poisson’s ratio (log-based definition)
+            % True Poisson's ratio (log-based definition)
             if lambda_y_vec(i) > 0 && lambda_x_vec(i) > 0
                 nu_true(i) = -log(lambda_x_vec(i)) / log(lambda_y_vec(i));
             else
@@ -649,7 +649,7 @@ for ia = 1:numel(angles_deg)
             timeVec(:), ...
             'linear','extrap');
 
-        % Plot true Poisson’s ratio
+        % Plot true Poisson's ratio
         cFigure; hold on;
         plot(lambda_y_vec, nu_true, 'b-', 'LineWidth', 5);
         xlabel('\lambda_y (Axial Stretch)', 'Interpreter', 'tex', 'FontSize', 20,'FontWeight', 'bold');
