@@ -67,7 +67,7 @@ m1_ini = 6.9427891844363305e+00;
 k_ini  = c1_ini*k_factor;
 
 % GOH fibers
-k1_ini    = 2.1009948723657132e+01;
+k1_ini    = 2*2.1009948723657132e+01;
 k2_ini    = 6.9399954857954005e-01;
 kappa_ini = 1.4455130336209238e-01;
 gamma     = 41;
@@ -343,21 +343,21 @@ febio_spec.Material.material{1}.solid{1}.k  = k_ini;
 
 % Solid 2: GOH fiber family +gamma
 febio_spec.Material.material{1}.solid{2}.ATTR.type = 'HGO unconstrained';
-febio_spec.Material.material{1}.solid{2}.c     = cGOH_ini/2;
+febio_spec.Material.material{1}.solid{2}.c     = 2*(cGOH_ini/2);
 febio_spec.Material.material{1}.solid{2}.k1    = k1_ini;
 febio_spec.Material.material{1}.solid{2}.k2    = k2_ini;
 febio_spec.Material.material{1}.solid{2}.gamma = gamma;
 febio_spec.Material.material{1}.solid{2}.kappa = kappa_ini;
-febio_spec.Material.material{1}.solid{2}.k     = kGOH_ini/2;
+febio_spec.Material.material{1}.solid{2}.k     = 2*(kGOH_ini/2);
 
 % Solid 3: GOH fiber family -gamma
-febio_spec.Material.material{1}.solid{3}.ATTR.type = 'HGO unconstrained';
-febio_spec.Material.material{1}.solid{3}.c     = cGOH_ini/2;
-febio_spec.Material.material{1}.solid{3}.k1    = k1_ini;
-febio_spec.Material.material{1}.solid{3}.k2    = k2_ini;
-febio_spec.Material.material{1}.solid{3}.gamma = -gamma;
-febio_spec.Material.material{1}.solid{3}.kappa = kappa_ini;
-febio_spec.Material.material{1}.solid{3}.k     = kGOH_ini/2;
+% febio_spec.Material.material{1}.solid{3}.ATTR.type = 'HGO unconstrained';
+% febio_spec.Material.material{1}.solid{3}.c     = cGOH_ini/2;
+% febio_spec.Material.material{1}.solid{3}.k1    = k1_ini;
+% febio_spec.Material.material{1}.solid{3}.k2    = k2_ini;
+% febio_spec.Material.material{1}.solid{3}.gamma = -gamma;
+% febio_spec.Material.material{1}.solid{3}.kappa = kappa_ini;
+% febio_spec.Material.material{1}.solid{3}.k     = kGOH_ini/2;
 
 
 % Mesh section
@@ -765,18 +765,18 @@ febio_spec.Material.material{1}.solid{1}.m1 = m1;
 febio_spec.Material.material{1}.solid{1}.k  = kOgden;
 
 % Update GOH fiber family +gamma
-febio_spec.Material.material{1}.solid{2}.c     = cGOH/2;
+febio_spec.Material.material{1}.solid{2}.c     = 2*(cGOH/2);
 febio_spec.Material.material{1}.solid{2}.k1    = k1;
 febio_spec.Material.material{1}.solid{2}.k2    = k2;
 febio_spec.Material.material{1}.solid{2}.kappa = kappa;
-febio_spec.Material.material{1}.solid{2}.k     = kGOH/2;
+febio_spec.Material.material{1}.solid{2}.k     = 2*(kGOH/2);
 
 % Update GOH fiber family -gamma
-febio_spec.Material.material{1}.solid{3}.c     = cGOH/2;
-febio_spec.Material.material{1}.solid{3}.k1    = k1;
-febio_spec.Material.material{1}.solid{3}.k2    = k2;
-febio_spec.Material.material{1}.solid{3}.kappa = kappa;
-febio_spec.Material.material{1}.solid{3}.k     = kGOH/2;
+% febio_spec.Material.material{1}.solid{3}.c     = cGOH/2;
+% febio_spec.Material.material{1}.solid{3}.k1    = k1;
+% febio_spec.Material.material{1}.solid{3}.k2    = k2;
+% febio_spec.Material.material{1}.solid{3}.kappa = kappa;
+% febio_spec.Material.material{1}.solid{3}.k     = kGOH/2;
 
 
 nElem = size(febio_spec.Mesh.Elements{1}.elem.VAL,1);
@@ -845,16 +845,7 @@ if all(runFlags==1)
 
     drawnow; axis tight; drawnow;
 
-    % Compute error metrics
-    % diff1 = (stress_exp_perp_raw(2:end)-stress_perp_sim_exp(2:end)); % Difference
-    % errorVal1 = diff1; % errorVal1 = diff1./stress_exp_perp_raw(2:end); % Relative
-    % 
-    % diff2 = (stress_exp_para_raw(2:end)-stress_para_sim_exp(2:end)); % Difference
-    % errorVal2 = diff2; % errorVal2 = diff2./stress_exp_para_raw(2:end); % Relative
-    % 
-    % errorVal = [errorVal1(:); errorVal2(:)]; % Appending error vectors together
-
-    diff1 = stress_exp_perp_raw(2:end) - stress_perp_sim_exp(2:end);
+       diff1 = stress_exp_perp_raw(2:end) - stress_perp_sim_exp(2:end);
     diff2 = stress_exp_para_raw(2:end) - stress_para_sim_exp(2:end);
 
     scale1 = max(abs(stress_exp_perp_raw));
@@ -868,8 +859,6 @@ else
     errorVal = [NaN(size(stress_exp_perp_raw)); NaN(size(stress_exp_para_raw))];
 end
 
-% SSE = sum(errorVal.^2);
-% disp(['SSE: ', sprintf('%6.8e',SSE)]);
 
 if objectiveStruct.method == 1
     SSE = sum(errorVal.^2);
