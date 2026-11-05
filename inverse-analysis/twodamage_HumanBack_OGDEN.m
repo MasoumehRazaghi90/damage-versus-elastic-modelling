@@ -70,7 +70,7 @@ m1_ini = 6.9427891844363305e+00;
 k_ini  = c1_ini*k_factor;
 
 % GOH fibers
-k1_ini    = 2.1009948723657132e+01;
+k1_ini    = 2*2.1009948723657132e+01;
 k2_ini    = 6.9399954857954005e-01;
 kappa_ini = 1.4455130336209238e-01;
 gamma     = 41;
@@ -441,13 +441,13 @@ febio_spec.Material.material{1}.solid{2}.ATTR.type = 'elastic damage';
 % Elastic GOH material
 febio_spec.Material.material{1}.solid{2}.elastic.ATTR.type = 'HGO unconstrained';
 
-febio_spec.Material.material{1}.solid{2}.elastic.c = cGOH_ini/2;
+febio_spec.Material.material{1}.solid{2}.elastic.c = 2*(cGOH_ini/2);
 
 febio_spec.Material.material{1}.solid{2}.elastic.k1 = k1_ini;
 febio_spec.Material.material{1}.solid{2}.elastic.k2 = k2_ini;
 febio_spec.Material.material{1}.solid{2}.elastic.kappa = kappa_ini;
 febio_spec.Material.material{1}.solid{2}.elastic.gamma = +gamma;
-febio_spec.Material.material{1}.solid{2}.elastic.k = kGOH_ini/2;
+febio_spec.Material.material{1}.solid{2}.elastic.k = 2*(kGOH_ini/2);
 
 % GOH damage law
 febio_spec.Material.material{1}.solid{2}.damage.ATTR.type ='CDF log-normal';
@@ -461,27 +461,27 @@ febio_spec.Material.material{1}.solid{2}.criterion.ATTR.type = 'DC max normal La
 
 %% Component 3: damaged GOH, -gamma
 
-febio_spec.Material.material{1}.solid{3}.ATTR.type = 'elastic damage';
-
-% Elastic GOH material
-febio_spec.Material.material{1}.solid{3}.elastic.ATTR.type = 'HGO unconstrained';
-
-febio_spec.Material.material{1}.solid{3}.elastic.c = cGOH_ini/2;
-
-febio_spec.Material.material{1}.solid{3}.elastic.k1 = k1_ini;
-febio_spec.Material.material{1}.solid{3}.elastic.k2 = k2_ini;
-febio_spec.Material.material{1}.solid{3}.elastic.kappa = kappa_ini;
-febio_spec.Material.material{1}.solid{3}.elastic.gamma = -gamma;
-febio_spec.Material.material{1}.solid{3}.elastic.k = kGOH_ini/2;
-
-% Same GOH damage parameters as component 2
-febio_spec.Material.material{1}.solid{3}.damage.ATTR.type = 'CDF log-normal';
-
-febio_spec.Material.material{1}.solid{3}.damage.mu = mu_GOH_ini;
-febio_spec.Material.material{1}.solid{3}.damage.sigma = sigma_GOH_ini;
-febio_spec.Material.material{1}.solid{3}.damage.Dmax = Dmax_GOH_ini;
-
-febio_spec.Material.material{1}.solid{3}.criterion.ATTR.type = 'DC max normal Lagrange strain';
+% febio_spec.Material.material{1}.solid{3}.ATTR.type = 'elastic damage';
+% 
+% % Elastic GOH material
+% febio_spec.Material.material{1}.solid{3}.elastic.ATTR.type = 'HGO unconstrained';
+% 
+% febio_spec.Material.material{1}.solid{3}.elastic.c = cGOH_ini/2;
+% 
+% febio_spec.Material.material{1}.solid{3}.elastic.k1 = k1_ini;
+% febio_spec.Material.material{1}.solid{3}.elastic.k2 = k2_ini;
+% febio_spec.Material.material{1}.solid{3}.elastic.kappa = kappa_ini;
+% febio_spec.Material.material{1}.solid{3}.elastic.gamma = -gamma;
+% febio_spec.Material.material{1}.solid{3}.elastic.k = kGOH_ini/2;
+% 
+% % Same GOH damage parameters as component 2
+% febio_spec.Material.material{1}.solid{3}.damage.ATTR.type = 'CDF log-normal';
+% 
+% febio_spec.Material.material{1}.solid{3}.damage.mu = mu_GOH_ini;
+% febio_spec.Material.material{1}.solid{3}.damage.sigma = sigma_GOH_ini;
+% febio_spec.Material.material{1}.solid{3}.damage.Dmax = Dmax_GOH_ini;
+% 
+% febio_spec.Material.material{1}.solid{3}.criterion.ATTR.type = 'DC max normal Lagrange strain';
 
 % Mesh section
 % -> Nodes
@@ -934,11 +934,11 @@ febio_spec.Material.material{1}.solid{1}.damage.Dmax = Dmax_matrix;
 
 %% Update damaged GOH +gamma
 
-febio_spec.Material.material{1}.solid{2}.elastic.c = cGOH/2;
+febio_spec.Material.material{1}.solid{2}.elastic.c = 2*(cGOH/2);
 febio_spec.Material.material{1}.solid{2}.elastic.k1 = k1;
 febio_spec.Material.material{1}.solid{2}.elastic.k2 = k2;
 febio_spec.Material.material{1}.solid{2}.elastic.kappa = kappa;
-febio_spec.Material.material{1}.solid{2}.elastic.k = kGOH/2;
+febio_spec.Material.material{1}.solid{2}.elastic.k = 2*(kGOH/2);
 
 febio_spec.Material.material{1}.solid{2}.damage.mu = mu_GOH;
 febio_spec.Material.material{1}.solid{2}.damage.sigma = sigma_GOH;
@@ -947,15 +947,15 @@ febio_spec.Material.material{1}.solid{2}.damage.Dmax = Dmax_GOH;
 
 %% Update damaged GOH -gamma
 
-febio_spec.Material.material{1}.solid{3}.elastic.c = cGOH/2;
-febio_spec.Material.material{1}.solid{3}.elastic.k1 = k1;
-febio_spec.Material.material{1}.solid{3}.elastic.k2 = k2;
-febio_spec.Material.material{1}.solid{3}.elastic.kappa = kappa;
-febio_spec.Material.material{1}.solid{3}.elastic.k = kGOH/2;
-
-febio_spec.Material.material{1}.solid{3}.damage.mu = mu_GOH;
-febio_spec.Material.material{1}.solid{3}.damage.sigma = sigma_GOH;
-febio_spec.Material.material{1}.solid{3}.damage.Dmax = Dmax_GOH;
+% febio_spec.Material.material{1}.solid{3}.elastic.c = cGOH/2;
+% febio_spec.Material.material{1}.solid{3}.elastic.k1 = k1;
+% febio_spec.Material.material{1}.solid{3}.elastic.k2 = k2;
+% febio_spec.Material.material{1}.solid{3}.elastic.kappa = kappa;
+% febio_spec.Material.material{1}.solid{3}.elastic.k = kGOH/2;
+% 
+% febio_spec.Material.material{1}.solid{3}.damage.mu = mu_GOH;
+% febio_spec.Material.material{1}.solid{3}.damage.sigma = sigma_GOH;
+% febio_spec.Material.material{1}.solid{3}.damage.Dmax = Dmax_GOH;
 
 nElem = size(febio_spec.Mesh.Elements{1}.elem.VAL,1);
 
@@ -1023,42 +1023,7 @@ if all(runFlags==1)
     stress_para_sim  = squeeze(mean(mean(simData(2).dataStruct_stress.data,1),2));
     energy_para_sim  = squeeze(mean(mean(simData(2).dataStruct_energy.data,1),2));
 
-    % Damage from same CDF log-normal law
-    % normalCDF = @(x) 0.5.*(1 + erf(x./sqrt(2))); % avoids needing Statistics Toolbox
-    %
-    % Ecrit_perp = 0.5*(stretch_perp_sim.^2 - 1);
-    % Ecrit_para = 0.5*(stretch_para_sim.^2 - 1);
-    %
-    % damage_perp_sim = Dmax .* normalCDF((Ecrit_perp - mu)./sigma);
-    % damage_para_sim = Dmax .* normalCDF((Ecrit_para - mu)./sigma);
-
-    % % Approximate maximum Lagrange strain for this uniaxial test
-    % Ecrit_perp = 0.5*(stretch_perp_sim.^2 - 1);
-    % Ecrit_para = 0.5*(stretch_para_sim.^2 - 1);
-    %
-    % % FEBio damage is irreversible, so use the maximum previous value
-    % Xhist_perp = cummax(max(Ecrit_perp,0));
-    % Xhist_para = cummax(max(Ecrit_para,0));
-    %
-    % damage_perp_sim = zeros(size(Xhist_perp));
-    % damage_para_sim = zeros(size(Xhist_para));
-    %
-    % indPerp = Xhist_perp > 0;
-    % indPara = Xhist_para > 0;
-    %
-    % damage_perp_sim(indPerp) = Dmax .* 0.5 .* erfc( ...
-    %     -log(Xhist_perp(indPerp)./mu) ./ (sigma*sqrt(2)));
-    %
-    % damage_para_sim(indPara) = Dmax .* 0.5 .* erfc( ...
-    %     -log(Xhist_para(indPara)./mu) ./ (sigma*sqrt(2)));
-
-    % Read actual damage calculated by FEBio
-    % damage_perp_sim = squeeze(mean(mean( ...
-    %     simData(1).dataStruct_damage.data,1),2));
-    %
-    % damage_para_sim = squeeze(mean(mean( ...
-    %     simData(2).dataStruct_damage.data,1),2));
-
+    
     % Interpolating simulation data for the experimental stretch points
     stress_perp_sim_exp = interp1(stretch_perp_sim,stress_perp_sim,stretch_exp_perp_raw,'pchip','extrap');
     stress_para_sim_exp = interp1(stretch_para_sim,stress_para_sim,stretch_exp_para_raw,'pchip','extrap');
@@ -1090,12 +1055,7 @@ if all(runFlags==1)
     set(he(2),'XData',stretch_para_sim,'YData',energy_para_sim);
     drawnow; axis tight; drawnow;
 
-    % Update damage graph
-    % figure(objectiveStruct.hf_damage)
-    % set(objectiveStruct.hd(1),'XData',stretch_perp_sim,'YData',damage_perp_sim);
-    % set(objectiveStruct.hd(2),'XData',stretch_para_sim,'YData',damage_para_sim);
-    % drawnow; axis tight; drawnow;
-
+  
     % Compute error metrics
     diff1 = stress_exp_perp_raw(2:end) - stress_perp_sim_exp(2:end);
     diff2 = stress_exp_para_raw(2:end) - stress_para_sim_exp(2:end);
@@ -1103,14 +1063,6 @@ if all(runFlags==1)
     scale1 = max(abs(stress_exp_perp_raw));
     scale2 = max(abs(stress_exp_para_raw));
 
-    % errorVal1 = diff1 ./ scale1;
-    % errorVal2 = diff2 ./ scale2;
-    %
-    % % Because n_perp = 24 and n_para = 22, make total directional weight equal
-    % errorVal1 = errorVal1 ./ sqrt(numel(errorVal1));
-    % errorVal2 = errorVal2 ./ sqrt(numel(errorVal2));
-    %
-    % errorVal = [errorVal1(:); errorVal2(:)];
 
     % Normalised residuals
     errorVal1 = diff1 ./ scale1;
@@ -1201,4 +1153,3 @@ end
 
 
 end
-
